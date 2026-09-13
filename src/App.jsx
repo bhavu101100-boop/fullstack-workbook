@@ -1,26 +1,25 @@
-import { useState } from 'react'
+import StudentCard from './StudentCard'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <h1>Full Stack Development - I</h1>
-        <h2>React Setup & GitHub Initialization</h2>
+      <h1>Components and Props</h1>
 
-        <p>Welcome to my React project.</p>
+      <StudentCard
+        name="Bhavika Vachheta"
+        course="BCA"
+      />
 
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+      <StudentCard
+        name="Dipal Sharma"
+        course="BCA"
+      />
 
-        <p>
-          This project is created as part of my Full Stack Development-I
-          Experiential Learning Workbook.
-        </p>
-      </div>
+      <StudentCard
+        name="Tisha Prajapati"
+        course="BCA"
+      />
     </>
   )
 }
