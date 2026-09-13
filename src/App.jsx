@@ -1,22 +1,34 @@
-import { useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+
+function Home() {
+  return <h2>Home Page</h2>
+}
+
+function About() {
+  return <h2>About Page</h2>
+}
+
+function Contact() {
+  return <h2>Contact Page</h2>
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    document.title = `Count: ${count}`
-  }, [count])
-
   return (
-    <>
-      <h1>useEffect & Lifecycle Concepts</h1>
+    <BrowserRouter>
+      <h1>React Router and Navigation</h1>
 
-      <p>Counter Value: {count}</p>
+      <nav>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/about">About</Link> |{" "}
+        <Link to="/contact">Contact</Link>
+      </nav>
 
-      <button onClick={() => setCount(count + 1)}>
-        Increase
-      </button>
-    </>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
