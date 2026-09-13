@@ -1,25 +1,21 @@
-import StudentCard from './StudentCard'
-import './App.css'
+import { useState } from 'react'
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
     <>
-      <h1>Components and Props</h1>
+      <h1>State Management using useState</h1>
 
-      <StudentCard
-        name="Bhavika Vachheta"
-        course="BCA"
-      />
+      <p>Counter Value: {count}</p>
 
-      <StudentCard
-        name="Dipal Sharma"
-        course="BCA"
-      />
+      <button onClick={() => setCount(count + 1)}>
+        Increase
+      </button>
 
-      <StudentCard
-        name="Tisha Prajapati"
-        course="BCA"
-      />
+      <button onClick={() => setCount(count - 1)}>
+        Decrease
+      </button>
     </>
   )
 }
