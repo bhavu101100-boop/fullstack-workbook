@@ -1,4 +1,11 @@
+import { useMemo } from 'react'
 function Dashboard() {
+    const skillScores = [80, 85, 65, 70]
+
+  const overallSkillProgress = useMemo(() => {
+    const total = skillScores.reduce((sum, score) => sum + score, 0)
+    return Math.round(total / skillScores.length)
+  }, [])
   return (
     <div className="dashboard-page">
 
@@ -61,18 +68,17 @@ function Dashboard() {
 
       {/* Main Content */}
       <div className="dashboard-grid">
-
-        {/* Today's Tasks */}
-        <section className="dashboard-card">
-
-          <div className="card-header">
+        <div className="card-header">
             <div>
-              <h2>Today's Focus</h2>
-              <p>Stay on top of your priorities.</p>
+                <h2>My Skill Progress</h2>
+                <p>Track your technical growth.</p>
             </div>
 
-            <button>View All</button>
-          </div>
+            <div className="overall-skill">
+                <span>Overall</span>
+                <strong>{overallSkillProgress}%</strong>
+            </div>
+        </div>
 
           <div className="dashboard-task">
             <div className="check completed">✓</div>
@@ -182,13 +188,16 @@ function Dashboard() {
       <section className="dashboard-card progress-section">
 
         <div className="card-header">
-          <div>
-            <h2>My Skill Progress</h2>
-            <p>Track your technical growth.</p>
-          </div>
+            <div>
+                <h2>My Skill Progress</h2>
+                <p>Track your technical growth.</p>
+            </div>
 
-          <button>View Skills</button>
-        </div>
+            <div className="overall-skill">
+                <span>Overall</span>
+                <strong>{overallSkillProgress}%</strong>
+            </div>
+            </div>
 
         <div className="skills-row">
 
