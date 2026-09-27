@@ -15,9 +15,18 @@ function Dashboard() {
 }, [])
 
 const [lastUpdated, setLastUpdated] = useState('')
+const [student, setStudent] = useState(null)
 
 useEffect(() => {
   setLastUpdated(new Date().toLocaleTimeString())
+  fetch('http://localhost:5000/api/student')
+    .then(response => response.json())
+    .then(data => {
+      setStudent(data)
+    })
+    .catch(error => {
+      console.error('API Error:', error)
+    })
 }, [])
 
 
@@ -35,7 +44,7 @@ useEffect(() => {
           </span>
 
           <h1>
-            Good Morning, Bhavika 👋
+            Good Morning, {student ? student.name : 'Bhavika'} 👋
           </h1>
 
           <p>
