@@ -1,8 +1,35 @@
+import { useEffect, useState } from 'react'
+
 function Home() {
+  const [updates, setUpdates] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts?_limit=4')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch API data')
+        }
+        return response.json()
+      })
+      .then((data) => {
+        setUpdates(data)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error('API Error:', error)
+        setError(true)
+        setLoading(false)
+      })
+  }, [])
+
   return (
     <div className="home-page">
 
+      {/* ================= HERO SECTION ================= */}
       <section className="home-hero">
+
         <div className="home-content">
 
           <span className="home-badge">
@@ -23,6 +50,7 @@ function Home() {
           </p>
 
           <div className="home-buttons">
+
             <a href="/dashboard" className="primary-button">
               Explore Dashboard →
             </a>
@@ -30,6 +58,7 @@ function Home() {
             <a href="#features" className="secondary-button">
               Discover Features
             </a>
+
           </div>
 
         </div>
@@ -38,6 +67,7 @@ function Home() {
 
           <div className="floating-card card-one">
             <span>📚</span>
+
             <div>
               <strong>6</strong>
               <small>Courses</small>
@@ -47,6 +77,7 @@ function Home() {
           <div className="home-dashboard-preview">
 
             <div className="preview-top">
+
               <div>
                 <small>STUDENT DASHBOARD</small>
                 <h3>Good Morning, Bhavika 👋</h3>
@@ -55,6 +86,7 @@ function Home() {
               <div className="preview-avatar">
                 BV
               </div>
+
             </div>
 
             <div className="preview-stat-row">
@@ -77,6 +109,7 @@ function Home() {
             </div>
 
             <div className="preview-progress">
+
               <div>
                 <span>Overall Progress</span>
                 <strong>82%</strong>
@@ -85,40 +118,125 @@ function Home() {
               <div className="preview-progress-bar">
                 <div></div>
               </div>
+
             </div>
 
             <div className="preview-task">
+
               <span className="done-circle">✓</span>
+
               <div>
                 <strong>Project Documentation</strong>
                 <small>Completed</small>
               </div>
+
             </div>
 
             <div className="preview-task">
+
               <span className="empty-circle"></span>
+
               <div>
                 <strong>React Assignment</strong>
                 <small>Due Today</small>
               </div>
+
             </div>
 
           </div>
 
           <div className="floating-card card-two">
+
             <span>🎯</span>
+
             <div>
               <strong>72%</strong>
               <small>Skill Progress</small>
             </div>
+
           </div>
 
         </div>
+
       </section>
+
+
+      {/* ================= WEEK 7 API SECTION ================= */}
+
+      <section className="api-updates-section">
+
+        <div className="home-section-heading">
+
+          <span>LIVE CAMPUS UPDATES</span>
+
+          <h2>
+            Latest student
+            <br />
+            <span>updates.</span>
+          </h2>
+
+          <p>
+            CampusPulse fetches the latest information from an external API.
+          </p>
+
+        </div>
+
+
+        {loading && (
+          <div className="api-status">
+            <strong>Loading campus updates...</strong>
+            <p>Fetching latest information from API.</p>
+          </div>
+        )}
+
+
+        {error && (
+          <div className="api-status">
+            <strong>Unable to load updates.</strong>
+            <p>Please check your internet connection and try again.</p>
+          </div>
+        )}
+
+
+        {!loading && !error && (
+          <div className="api-updates-grid">
+
+            {updates.map((update) => (
+
+              <div className="api-update-card" key={update.id}>
+
+                <div className="api-update-icon">
+                  📢
+                </div>
+
+                <div>
+
+                  <strong>
+                    {update.title}
+                  </strong>
+
+                  <p>
+                    {update.body}
+                  </p>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+        )}
+
+      </section>
+
+
+      {/* ================= FEATURES SECTION ================= */}
 
       <section className="home-features" id="features">
 
         <div className="home-section-heading">
+
           <span>EVERYTHING IN ONE PLACE</span>
 
           <h2>
@@ -131,48 +249,69 @@ function Home() {
             Manage your college journey with simple tools designed
             around the way students actually work.
           </p>
+
         </div>
+
 
         <div className="home-feature-grid">
 
           <div className="home-feature-card">
+
             <div className="home-feature-icon blue-icon">
               📚
             </div>
+
             <h3>Academic Planning</h3>
+
             <p>
               Organize courses, assignments and your academic goals.
             </p>
+
           </div>
 
+
           <div className="home-feature-card">
+
             <div className="home-feature-icon coral-icon">
               ✓
             </div>
+
             <h3>Assignments</h3>
+
             <p>
               Track your daily tasks and never miss important deadlines.
             </p>
+
           </div>
 
+
           <div className="home-feature-card">
+
             <div className="home-feature-icon teal-icon">
               📋
             </div>
+
             <h3>Attendance</h3>
+
             <p>
               Monitor your subject-wise attendance and academic status.
             </p>
+
           </div>
 
+
           <div className="home-feature-card">
+
             <div className="home-feature-icon yellow-icon">
               🎯
             </div>
+
             <h3>Skills & Career</h3>
+
             <p>
               Track technical skills and visualize your career growth.
             </p>
+
           </div>
 
         </div>
@@ -180,7 +319,7 @@ function Home() {
       </section>
 
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home
